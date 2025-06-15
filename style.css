@@ -1,0 +1,330 @@
+/* CSS Variables for Theming */
+:root {
+  --bg-color: #f4f4f4;
+  --text-color: #333;
+  --header-bg: #333;
+  --header-text: #fff;
+  --control-bg: #fff;
+  --button-bg: #ddd;
+  --button-hover-bg: #bbb;
+  --skeleton-bg: #ccc;
+  --item-info-bg: rgba(0,0,0,0.5);
+  --item-info-text: white;
+}
+
+body.dark {
+  --bg-color: #121212;
+  --text-color: #f4f4f4;
+  --header-bg: #1a1a1a;
+  --header-text: #f4f4f4;
+  --control-bg: #282828;
+  --button-bg: #444;
+  --button-hover-bg: #666;
+  --skeleton-bg: #333;
+  --item-info-bg: rgba(0,0,0,0.7);
+  --item-info-text: #f4f4f4;
+}
+
+/* Base Styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Header */
+header {
+  background-color: var(--header-bg);
+  color: var(--header-text);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+header h1 {
+  margin: 0;
+}
+nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+nav a, nav button {
+  color: var(--header-text);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+nav a:hover, nav button:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* Controls and Settings */
+.controls, .settings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+.controls input[type="text"],
+.controls select {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: var(--control-bg);
+  color: var(--text-color);
+  transition: border-color 0.2s;
+}
+.controls input[type="text"]:focus,
+.controls select:focus {
+  border-color: #666;
+  outline: none;
+}
+.controls button, .settings button, .tags button {
+  padding: 0.5rem 1rem;
+  background: var(--button-bg);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s, opacity 0.2s;
+  color: var(--text-color); /* Inherit text color from body */
+}
+.controls button:hover:not(:disabled),
+.settings button:hover:not(:disabled),
+.tags button:hover:not(:disabled) {
+  background-color: var(--button-hover-bg);
+}
+.controls button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.tags button {
+  border-radius: 20px; /* Pill shape for tags */
+}
+
+/* Gallery */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+.compact .gallery {
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.item {
+  position: relative;
+  background-color: var(--control-bg); /* Use control-bg for item background */
+  border-radius: 8px;
+  overflow: hidden; /* Ensure rounded corners for image/video inside */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+body.dark .item {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+.item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.item img, .item video {
+  width: 100%;
+  height: 200px; /* Fixed height for consistency */
+  object-fit: cover; /* Cover the area, cropping if necessary */
+  display: block; /* Remove extra space below inline elements */
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+.item:hover img, .item:hover video {
+    transform: scale(1.03); /* Slight zoom on hover */
+}
+
+.item-info {
+  position: absolute;
+  bottom: 0;
+  background: var(--item-info-bg);
+  color: var(--item-info-text);
+  width: 100%;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box; /* Include padding in width */
+  font-size: 0.9em;
+  backdrop-filter: blur(2px); /* Subtle blur effect */
+}
+.item-info p {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.item-info button, .item-info a {
+  background: none;
+  border: none;
+  color: var(--item-info-text);
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-left: 10px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.item-info button:hover, .item-info a:hover {
+    opacity: 1;
+}
+
+/* Lightbox */
+.lightbox {
+  display: flex; /* Changed from none to flex by JS when active */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85); /* Slightly darker overlay */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  outline: none; /* For accessibility, remove default outline */
+}
+.lightbox-content {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  display: flex; /* Allows img/video to center within */
+  justify-content: center;
+  align-items: center;
+}
+.lightbox-content img, .lightbox-content video {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto; /* Allow natural sizing up to max */
+  height: auto;
+  border-radius: 8px; /* Maintain rounded corners */
+}
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s, transform 0.2s;
+}
+.lightbox-close:hover {
+    background-color: rgba(255,255,255,0.4);
+    transform: rotate(90deg);
+}
+
+
+/* Favorites Page */
+.favorites-page {
+  display: none; /* Controlled by JS */
+}
+
+/* Back to Top Button */
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none; /* Controlled by JS */
+  background: var(--header-bg); /* Use header background color */
+  color: var(--header-text);
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 1;
+  text-align: center;
+  z-index: 999;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.2s, transform 0.2s;
+}
+.back-to-top:hover {
+    transform: translateY(-3px);
+    background-color: var(--button-hover-bg); /* Use button hover for consistency */
+}
+
+/* Skeleton Loader */
+.skeleton {
+  background: var(--skeleton-bg);
+  border-radius: 8px;
+  height: 200px; /* Match item height */
+  animation: pulse 1.5s infinite;
+  box-shadow: none; /* Skeletons don't need shadow */
+}
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* No Results Message */
+.no-results {
+    text-align: center;
+    width: 100%; /* Spans full width of gallery */
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+/* Responsive adjustments */
+@media(max-width: 768px) {
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    .compact .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    .controls, .settings {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .controls input, .controls select, .controls button {
+        width: 100%;
+        box-sizing: border-box; /* Ensure padding is included */
+    }
+}
+@media(max-width: 600px) {
+  nav {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
