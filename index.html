@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shady Photos</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Shady Photos</h1>
+    <nav>
+      <a href="#" onclick="showHome()">Home</a>
+      <a href="#" onclick="showFavorites()">Favorites</a>
+      <button id="darkModeToggle" aria-label="Toggle Dark Mode">🌙</button>
+    </nav>
+  </header>
+
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="Search photos/videos..." aria-label="Search Photos or Videos" />
+    <select id="typeSelect" aria-label="Select Media Type">
+      <option value="photo">Photos</option>
+      <option value="video">Videos</option>
+    </select>
+    <button id="searchButton" aria-label="Search">Search</button>
+  </div>
+
+  <div class="tags">
+    <button onclick="quickSearch('Nature')">Nature</button>
+    <button onclick="quickSearch('Technology')">Technology</button>
+    <button onclick="quickSearch('People')">People</button>
+    <button onclick="quickSearch('Animals')">Animals</button>
+    <button onclick="quickSearch('City')">City</button>
+    <button onclick="quickSearch('Food')">Food</button>
+  </div>
+
+  <div class="settings">
+    <label>
+      <input type="checkbox" id="autoplayToggle" /> Autoplay Videos
+    </label>
+    <label>
+      <input type="checkbox" id="compactViewToggle" /> Compact View
+    </label>
+    <button onclick="resetFavorites()">Reset Favorites</button>
+  </div>
+
+  <main class="gallery" id="gallery"></main>
+  <div class="gallery favorites-page" id="favorites"></div>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content" id="lightboxContent"></div>
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close Lightbox">X</button>
+  </div>
+
+  <button class="back-to-top" onclick="scrollToTop()" aria-label="Back to Top">⬆️</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
